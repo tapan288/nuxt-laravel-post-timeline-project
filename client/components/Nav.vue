@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { user, isAuthenticated } = useSanctumAuth();
+</script>
 <template>
   <header class="bg-white">
     <nav
@@ -9,9 +11,13 @@
           <span class="text-xl font-bold"> Product Name </span>
         </a>
         <div class="hidden lg:flex lg:gap-x-12">
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">
+          <NuxtLink
+            v-if="isAuthenticated"
+            to="/dashboard"
+            class="text-sm font-semibold leading-6 text-gray-900"
+          >
             Dashboard
-          </a>
+          </NuxtLink>
         </div>
       </div>
       <div class="flex lg:hidden">
@@ -37,8 +43,11 @@
       </div>
       <div class="hidden lg:flex">
         <div class="flex items-center space-x-6">
-          <div class="text-sm font-semibold leading-6 text-gray-900">
-            User name
+          <div
+            v-if="isAuthenticated"
+            class="text-sm font-semibold leading-6 text-gray-900"
+          >
+            {{ user.name }}
           </div>
           <button class="text-sm font-semibold leading-6 text-gray-900">
             Log out &rarr;
