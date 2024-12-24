@@ -5,4 +5,9 @@ declare global {
     email: string;
     created_at: string;
   }
+
+  interface LoginForm {
+    email: string;
+    password: string;
+  }
 }
