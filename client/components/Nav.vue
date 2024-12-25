@@ -1,6 +1,11 @@
 <script setup lang="ts">
-const { isAuthenticated } = useSanctumAuth();
+const { isAuthenticated, logout: logoutAction } = useSanctumAuth();
 const user = useSanctumUser<User>();
+
+const logout = async () => {
+  await logoutAction();
+  //   await navigateTo("/");
+};
 </script>
 <template>
   <header class="bg-white">
@@ -47,11 +52,14 @@ const user = useSanctumUser<User>();
           <div class="text-sm font-semibold leading-6 text-gray-900">
             {{ user.name }}
           </div>
-          <button class="text-sm font-semibold leading-6 text-gray-900">
+          <button
+            @click="logout"
+            class="text-sm font-semibold leading-6 text-gray-900"
+          >
             Log out &rarr;
           </button>
         </div>
-        <div>
+        <div v-if="!isAuthenticated">
           <NuxtLink
             to="/auth/login"
             class="text-sm font-semibold leading-6 text-gray-900"

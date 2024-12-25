@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     redirect: {
       onAuthOnly: "auth/login",
       onGuestOnly: "dashboard",
+      onLogout: "/",
     },
   },
   css: ["~/assets/css/main.css"],
