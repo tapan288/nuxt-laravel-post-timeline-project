@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   devServer: {
     host: "backend.test",
   },
+  plugins: ["~/plugins/echo.client.ts"],
 
   modules: ["nuxt-auth-sanctum"],
   sanctum: {
