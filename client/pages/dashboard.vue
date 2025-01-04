@@ -5,7 +5,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  Echo.channel("posts").listen("ExampleEvent", (e) => {
+  Echo.private("privateChannel").listen("PrivateEventExample", (e) => {
     console.log(e);
   });
 });
