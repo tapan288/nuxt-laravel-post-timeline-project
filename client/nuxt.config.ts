@@ -7,6 +7,12 @@ export default defineNuxtConfig({
     host: "backend.test",
   },
   plugins: ["~/plugins/echo.client.ts"],
+  runtimeConfig: {
+    public: {
+      REVERB_KEY: process.env.REVERB_KEY,
+      REVERB_HOST: process.env.REVERB_HOST,
+    },
+  },
 
   modules: ["nuxt-auth-sanctum"],
   sanctum: {
