@@ -2,4 +2,6 @@
 
 <template>
   <div>Home</div>
+
+  <Whisper />
 </template>

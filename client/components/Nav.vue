@@ -71,7 +71,7 @@ const logout = async () => {
     </nav>
 
     <!-- Mobile menu -->
-    <div class="lg:hidden">
+    <!-- <div class="lg:hidden">
       <div
         class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:ring-1 sm:ring-gray-900/10"
       >
@@ -126,6 +126,6 @@ const logout = async () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </header>
 </template>
