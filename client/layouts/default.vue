@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 <template>
-  <Nav />
-  <div class="mx-auto max-w-5xl pt-12 px-8">
-    <slot />
+  <div class="min-h-screen bg-gray-100">
+    <Nav />
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
