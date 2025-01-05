@@ -3,5 +3,5 @@
 <template>
   <div>Home</div>
 
-  <Whisper />
+  <!-- <Whisper /> -->
 </template>
