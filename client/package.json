@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@vueuse/core": "^12.3.0",
     "axios": "^1.7.9",
     "laravel-echo": "^1.17.1",
     "nuxt": "^3.14.1592",
