@@ -24,6 +24,6 @@ const { stop } = useIntersectionObserver(
 <template>
   <div class="space-y-8">
     <PostItem v-for="post in posts" :key="post.id" :post="post" />
-    <div ref="target"></div>
+    <div ref="target" class="-translate-y-20"></div>
   </div>
 </template>
