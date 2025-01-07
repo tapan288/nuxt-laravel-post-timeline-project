@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["nuxt-auth-sanctum"],
+  modules: ["nuxt-auth-sanctum", "@pinia/nuxt"],
   sanctum: {
     baseUrl: "http://backend.test:80", // Laravel API
     redirect: {
