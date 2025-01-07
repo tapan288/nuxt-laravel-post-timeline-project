@@ -1,7 +1,8 @@
 export const usePostStore = defineStore("postStore", () => {
   const posts = ref([]),
     page = ref(1),
-    isLoaded = ref(false);
+    isLoaded = ref(false),
+    createErrors = ref({});
   const sanctumFetch = useSanctumClient();
 
   const fetchPosts = async (pageNumber = 1) => {
@@ -20,5 +21,27 @@ export const usePostStore = defineStore("postStore", () => {
     fetchPosts(page.value + 1);
   };
 
-  return { posts, fetchPosts, fetchNextPosts, isLoaded };
+  const storePost = async (form) => {
+    try {
+      const response = await sanctumFetch("/api/posts", {
+        method: "POST",
+        body: form,
+      });
+
+      posts.value = [response, ...posts.value];
+    } catch (error) {
+      if (error.statusCode === 422) {
+        createErrors.value = error.data.errors;
+      }
+    }
+  };
+
+  return {
+    posts,
+    fetchPosts,
+    fetchNextPosts,
+    isLoaded,
+    storePost,
+    createErrors,
+  };
 });

@@ -2,7 +2,6 @@
 import { useIntersectionObserver } from "@vueuse/core";
 import PostItem from "./PostItem.vue";
 
-const { fetchPosts, posts, fetchNextPosts, isLoaded } = usePost();
 const postStore = usePostStore();
 
 onMounted(async () => {

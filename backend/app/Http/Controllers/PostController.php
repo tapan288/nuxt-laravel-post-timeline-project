@@ -29,6 +29,8 @@ class PostController extends Controller
             'body' => $request->body,
         ]);
 
+        $post->load('user');
+
         return PostResource::make($post);
     }
 
