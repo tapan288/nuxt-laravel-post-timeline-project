@@ -1,6 +1,7 @@
 export const usePost = () => {
   const posts = ref([]),
-    page = ref("1");
+    page = ref(1),
+    isLoaded = ref(false);
   const sanctumFetch = useSanctumClient();
 
   const fetchPosts = async (pageNumber = 1) => {
@@ -9,6 +10,7 @@ export const usePost = () => {
 
       posts.value = [...posts.value, ...response.data];
       page.value = response.meta.current_page;
+      isLoaded.value = true;
     } catch (error) {
       console.log(error);
     }
@@ -18,5 +20,5 @@ export const usePost = () => {
     fetchPosts(page.value + 1);
   };
 
-  return { posts, fetchPosts, fetchNextPosts };
+  return { posts, fetchPosts, fetchNextPosts, isLoaded };
 };

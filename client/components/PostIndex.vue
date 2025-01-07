@@ -2,7 +2,7 @@
 import { useIntersectionObserver } from "@vueuse/core";
 import PostItem from "./PostItem.vue";
 
-const { fetchPosts, posts, fetchNextPosts } = usePost();
+const { fetchPosts, posts, fetchNextPosts, isLoaded } = usePost();
 
 onMounted(async () => {
   await fetchPosts();
@@ -11,14 +11,11 @@ onMounted(async () => {
 const target = ref(null);
 const targetIsVisible = ref(false);
 
-const { stop } = useIntersectionObserver(
-  target,
-  ([{ isIntersecting }], observerElement) => {
-    if (isIntersecting) {
-      fetchNextPosts();
-    }
+const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
+  if (isIntersecting && isLoaded.value) {
+    fetchNextPosts();
   }
-);
+});
 </script>
 
 <template>
