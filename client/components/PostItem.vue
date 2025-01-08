@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   post: {
     type: Object,
     required: true,

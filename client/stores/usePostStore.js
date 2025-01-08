@@ -17,6 +17,14 @@ export const usePostStore = defineStore("postStore", () => {
     }
   };
 
+  const pushPost = (post) => {
+    if (posts.value.find((item) => item.id == post.id)) {
+      return;
+    }
+
+    posts.value = [post, ...posts.value];
+  };
+
   const fetchNextPosts = async () => {
     fetchPosts(page.value + 1);
   };
@@ -28,7 +36,7 @@ export const usePostStore = defineStore("postStore", () => {
         body: form,
       });
 
-      posts.value = [response, ...posts.value];
+      pushPost(response);
     } catch (error) {
       if (error.statusCode === 422) {
         createErrors.value = error.data.errors;
@@ -43,5 +51,6 @@ export const usePostStore = defineStore("postStore", () => {
     isLoaded,
     storePost,
     createErrors,
+    pushPost,
   };
 });
