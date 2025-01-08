@@ -1,4 +1,4 @@
-<script setup>
+<script setup type="module">
 import { useIntersectionObserver } from "@vueuse/core";
 import PostItem from "./PostItem.vue";
 
@@ -9,6 +9,12 @@ onMounted(async () => {
 });
 
 const target = ref(null);
+
+onMounted(() => {
+  Echo.channel("posts").listen("PostCreated", (post) => {
+    postStore.pushPost(post);
+  });
+});
 
 const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
   if (isIntersecting && postStore.isLoaded) {

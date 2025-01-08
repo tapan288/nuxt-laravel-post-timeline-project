@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
+        User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+        ]);
+
         $this->call([
             PostSeeder::class,
         ]);

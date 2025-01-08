@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
 use App\Models\Post;
 use App\Http\Resources\PostResource;
 use App\Http\Requests\StorePostRequest;
@@ -30,6 +31,8 @@ class PostController extends Controller
         ]);
 
         $post->load('user');
+
+        broadcast(new PostCreated($post->id))->toOthers();
 
         return PostResource::make($post);
     }
