@@ -12,6 +12,8 @@ const target = ref(null);
 
 onMounted(() => {
   Echo.channel("posts").listen("PostCreated", (post) => {
+    console.log(post);
+
     postStore.pushPost(post);
   });
 });

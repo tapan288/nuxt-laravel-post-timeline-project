@@ -33,6 +33,9 @@ export const usePostStore = defineStore("postStore", () => {
     try {
       const response = await sanctumFetch("/api/posts", {
         method: "POST",
+        headers: {
+          "X-Socket-Id": Echo.socketId(),
+        },
         body: form,
       });
 
