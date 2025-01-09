@@ -11,11 +11,13 @@ onMounted(async () => {
 const target = ref(null);
 
 onMounted(() => {
-  Echo.channel("posts").listen("PostCreated", (post) => {
-    console.log(post);
-
-    postStore.pushPost(post);
-  });
+  Echo.channel("posts")
+    .listen("PostCreated", (post) => {
+      postStore.pushPost(post);
+    })
+    .listen("PostDeleted", (event) => {
+      postStore.removePost(event.postId);
+    });
 });
 
 const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {

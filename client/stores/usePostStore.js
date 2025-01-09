@@ -47,6 +47,25 @@ export const usePostStore = defineStore("postStore", () => {
     }
   };
 
+  const deletePost = async (postId) => {
+    try {
+      const response = await sanctumFetch("/api/posts/" + postId, {
+        method: "DELETE",
+        headers: {
+          "X-Socket-Id": Echo.socketId(),
+        },
+      });
+
+      removePost(postId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removePost = (postId) => {
+    posts.value = posts.value.filter((post) => post.id != postId);
+  };
+
   return {
     posts,
     fetchPosts,
@@ -55,5 +74,7 @@ export const usePostStore = defineStore("postStore", () => {
     storePost,
     createErrors,
     pushPost,
+    deletePost,
+    removePost,
   };
 });

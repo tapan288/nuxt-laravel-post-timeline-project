@@ -1,10 +1,18 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   post: {
     type: Object,
     required: true,
   },
 });
+const user = useSanctumUser<User>();
+const postStore = usePostStore();
+
+const deletePost = () => {
+  if (confirm("Are you Sure?")) {
+    postStore.deletePost(props.post.id);
+  }
+};
 </script>
 
 <template>
@@ -22,6 +30,11 @@ const props = defineProps({
         <p>
           {{ post.body }}
         </p>
+      </div>
+      <div class="flex items-center space-x-2">
+        <div v-if="post.user.id == user.id">
+          <button class="text-indigo-500" @click="deletePost">Delete</button>
+        </div>
       </div>
     </div>
   </div>
