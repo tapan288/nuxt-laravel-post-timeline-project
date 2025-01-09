@@ -7,6 +7,7 @@ const props = defineProps({
 });
 const user = useSanctumUser<User>();
 const postStore = usePostStore();
+const editing = ref(false);
 
 const deletePost = () => {
   if (confirm("Are you Sure?")) {
@@ -25,17 +26,29 @@ const deletePost = () => {
         #{{ post.user.id }}
         <span class="text-slate-500">{{ post.user.name }}</span>
       </div>
-      <p>{{ post.id }}</p>
-      <div>
-        <p>
-          {{ post.body }}
-        </p>
-      </div>
-      <div class="flex items-center space-x-2">
-        <div v-if="post.user.id == user.id">
-          <button class="text-indigo-500" @click="deletePost">Delete</button>
+      <div v-show="!editing" class="space-y-4">
+        <p>{{ post.id }}</p>
+        <div>
+          <p>
+            {{ post.body }}
+          </p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div v-if="post.user.id == user.id">
+            <button class="text-indigo-500" @click="editing = true">
+              Edit
+            </button>
+          </div>
+          <div v-if="post.user.id == user.id">
+            <button class="text-indigo-500" @click="deletePost">Delete</button>
+          </div>
         </div>
       </div>
+      <EditPost
+        v-show="editing"
+        :post="post"
+        v-on:editCancel="editing = false"
+      />
     </div>
   </div>
 </template>
