@@ -19,6 +19,8 @@ export const usePostStore = defineStore("postStore", () => {
   };
 
   const pushPost = (post) => {
+    posts.value.pop();
+
     if (posts.value.find((item) => item.id == post.id)) {
       return;
     }
