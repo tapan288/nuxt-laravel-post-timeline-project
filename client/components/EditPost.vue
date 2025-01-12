@@ -31,11 +31,11 @@ const submit = async () => {
         placeholder="What do you want to say?"
       />
       <p
-        v-if="postStore.createErrors.body"
+        v-if="postStore.updateErrors.body"
         class="mt-2 text-sm text-red-600"
         id="email-error"
       >
-        {{ postStore.createErrors.body[0] }}
+        {{ postStore.updateErrors.body[0] }}
       </p>
     </div>
     <div class="flex items-center space-x-2">

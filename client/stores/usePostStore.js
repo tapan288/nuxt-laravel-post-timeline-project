@@ -2,7 +2,8 @@ export const usePostStore = defineStore("postStore", () => {
   const posts = ref([]),
     page = ref(1),
     isLoaded = ref(false),
-    createErrors = ref({});
+    createErrors = ref({}),
+    updateErrors = ref({});
   const sanctumFetch = useSanctumClient();
 
   const fetchPosts = async (pageNumber = 1) => {
@@ -61,7 +62,9 @@ export const usePostStore = defineStore("postStore", () => {
 
       return response;
     } catch (error) {
-      console.log(error);
+      if (error.statusCode === 422) {
+        updateErrors.value = error.data.errors;
+      }
 
       return Promise.reject(error);
     }
@@ -99,6 +102,7 @@ export const usePostStore = defineStore("postStore", () => {
     isLoaded,
     storePost,
     createErrors,
+    updateErrors,
     pushPost,
     deletePost,
     removePost,
