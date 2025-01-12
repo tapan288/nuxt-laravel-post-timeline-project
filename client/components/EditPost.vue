@@ -1,5 +1,6 @@
 <script setup>
 const postStore = usePostStore();
+const emit = defineEmits();
 
 const props = defineProps({
   post: {
@@ -13,8 +14,8 @@ const form = reactive({
 });
 
 const submit = async () => {
-  await postStore.storePost(form).then(() => {
-    form.body = "";
+  await postStore.updatePost(props.post.id, form).then((response) => {
+    emit("editCancel");
   });
 };
 </script>

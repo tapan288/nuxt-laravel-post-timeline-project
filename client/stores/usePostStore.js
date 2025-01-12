@@ -47,6 +47,26 @@ export const usePostStore = defineStore("postStore", () => {
     }
   };
 
+  const updatePost = async (postId, formData) => {
+    try {
+      const response = await sanctumFetch("/api/posts/" + postId, {
+        method: "PUT",
+        body: formData,
+        headers: {
+          "X-Socket-Id": Echo.socketId(),
+        },
+      });
+
+      syncPost(response);
+
+      return response;
+    } catch (error) {
+      console.log(error);
+
+      return Promise.reject(error);
+    }
+  };
+
   const deletePost = async (postId) => {
     try {
       const response = await sanctumFetch("/api/posts/" + postId, {
@@ -66,6 +86,12 @@ export const usePostStore = defineStore("postStore", () => {
     posts.value = posts.value.filter((post) => post.id != postId);
   };
 
+  const syncPost = (post) => {
+    const postInStore = posts.value.find((item) => item.id == post.id);
+    postInStore.body = post.body;
+    // postInStore.title = post.title;
+  };
+
   return {
     posts,
     fetchPosts,
@@ -76,5 +102,6 @@ export const usePostStore = defineStore("postStore", () => {
     pushPost,
     deletePost,
     removePost,
+    updatePost,
   };
 });
