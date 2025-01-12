@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostLiked;
 use App\Models\Post;
 use App\Events\PostCreated;
 use App\Events\PostDeleted;
@@ -66,6 +67,15 @@ class PostController extends Controller
         $post->update($request->validated());
 
         broadcast(new PostUpdated($post->id))->toOthers();
+
+        return PostResource::make($post);
+    }
+
+    public function like(Post $post)
+    {
+        $post->increment('likes');
+
+        broadcast(new PostLiked($post->id))->toOthers();
 
         return PostResource::make($post);
     }

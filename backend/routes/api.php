@@ -10,4 +10,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         return UserResource::make($request->user());
     });
     Route::apiResource('posts', PostController::class);
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('post.like');
 });

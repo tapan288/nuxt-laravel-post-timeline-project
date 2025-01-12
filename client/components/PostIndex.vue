@@ -1,4 +1,4 @@
-<script setup type="module">
+<script setup>
 import { useIntersectionObserver } from "@vueuse/core";
 import PostItem from "./PostItem.vue";
 

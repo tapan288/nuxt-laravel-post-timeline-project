@@ -70,6 +70,23 @@ export const usePostStore = defineStore("postStore", () => {
     }
   };
 
+  const likePost = async (postId) => {
+    try {
+      const response = await sanctumFetch("/api/posts/" + postId + "/like", {
+        method: "POST",
+        headers: {
+          "X-Socket-Id": Echo.socketId(),
+        },
+      });
+
+      syncLikes(response);
+
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+
   const deletePost = async (postId) => {
     try {
       const response = await sanctumFetch("/api/posts/" + postId, {
@@ -95,6 +112,11 @@ export const usePostStore = defineStore("postStore", () => {
     // postInStore.title = post.title;
   };
 
+  const syncLikes = (post) => {
+    const postInStore = posts.value.find((item) => item.id == post.id);
+    postInStore.likes = post.likes;
+  };
+
   return {
     posts,
     fetchPosts,
@@ -108,5 +130,7 @@ export const usePostStore = defineStore("postStore", () => {
     removePost,
     updatePost,
     syncPost,
+    likePost,
+    syncLikes,
   };
 });
