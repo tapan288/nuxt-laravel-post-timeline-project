@@ -103,5 +103,6 @@ export const usePostStore = defineStore("postStore", () => {
     deletePost,
     removePost,
     updatePost,
+    syncPost,
   };
 });

@@ -17,6 +17,9 @@ onMounted(() => {
     })
     .listen("PostDeleted", (event) => {
       postStore.removePost(event.postId);
+    })
+    .listen("PostUpdated", (post) => {
+      postStore.syncPost(post);
     });
 });
 

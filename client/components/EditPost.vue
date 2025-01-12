@@ -39,7 +39,7 @@ const submit = async () => {
       </p>
     </div>
     <div class="flex items-center space-x-2">
-      <PrimaryButton>Post</PrimaryButton>
+      <PrimaryButton>Update Post</PrimaryButton>
       <button type="button" @click="$emit('editCancel')">Cancel</button>
     </div>
   </form>
